@@ -3,18 +3,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const modeToggler = document.getElementById('modeToggler');
     const body = document.body;
 
+    // Check local storage for saved mode and apply it
+    const savedMode = localStorage.getItem('theme');
+    if (savedMode) {
+        body.classList.add(savedMode);
+        modeToggler.textContent = savedMode === 'day-mode' ? 'Switch to Night Mode' : 'Switch to Day Mode';
+    } else {
+        body.classList.add('day-mode'); // Default to day mode
+        modeToggler.textContent = 'Switch to Night Mode';
+    }
+
     modeToggler.addEventListener('click', function() {
         if (body.classList.contains('day-mode')) {
             body.classList.remove('day-mode');
             body.classList.add('night-mode');
             modeToggler.textContent = 'Switch to Day Mode';
+            localStorage.setItem('theme', 'night-mode');
         } else {
             body.classList.remove('night-mode');
             body.classList.add('day-mode');
             modeToggler.textContent = 'Switch to Night Mode';
+            localStorage.setItem('theme', 'day-mode');
         }
     });
 });
+
 
 //* for read more part
 document.getElementById("myBtn").addEventListener("click", function() {
